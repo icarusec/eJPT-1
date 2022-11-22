@@ -89,6 +89,37 @@ Below are some helpful Vulnerability assessment resources:
 - Google
 - Nessus
 
+##Starting a Web Server
+
+Some web servers u can use for File Upload and Download
+$ python -m SimpleHTTPServer <port>
+$ python3 -m http.server <port>
+
+PHP webserver :
+$ php -S <Your IP>:<Port>
+
+Starting Apache Server:
+$ sudo service apache2 start
+	
+Simple Python Web Server Code
+#!/usr/bin/python
+
+import SimpleHTTPServer
+import BaseHTTPServer
+
+class SputHTTPRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+    def do_PUT(self):
+        print self.headers
+        length = int(self.headers["Content-Length"])
+        path = self.translate_path(self.path)
+        with open(path, "wb") as dst:
+            dst.write(self.rfile.read(length))
+
+if name == 'main':
+    SimpleHTTPServer.test(HandlerClass=SputHTTPRequestHandler)
+
+
+
 
 ## Web Server Fingerprinting
 
